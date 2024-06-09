@@ -25,5 +25,6 @@ authRouter.post(
   ],
   authController.login
 );
+authRouter.get('/check', authController.checkAuth);
 
 module.exports = authRouter;

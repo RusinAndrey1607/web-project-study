@@ -15,7 +15,9 @@ class AuthController {
 
             const userData = await authService.registration(email, password);
 
-            req.session.user = userData;
+            // req.session.user = userData;
+            res.cookie("userData", JSON.stringify(userData), { httpOnly: true });
+
             return res.json(userData);
         } catch (error) {
             next(error);
@@ -32,8 +34,23 @@ class AuthController {
 
             const { email, password } = req.body;
             const userData = await authService.login(email, password);
-            req.session.user = userData;
+            // req.session.user = userData;
+            res.cookie("userData", JSON.stringify(userData), { httpOnly: true });
+
             return res.json(userData);
+        } catch (error) {
+            next(error);
+        }
+    }
+    async checkAuth(req, res, next) {
+        try {
+            console.log(req.cookies);
+            if (req.cookies && req.cookies.userData) {
+                const userData = JSON.parse(req.cookies.userData);
+                return res.json(userData);
+            } else {
+                return next(ApiError.UnauthorizedError());
+            }
         } catch (error) {
             next(error);
         }
