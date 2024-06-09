@@ -38,7 +38,7 @@ app.use(cors({
 }))
 app.use("/auth", authRouter)
 app.use('/lot', authMiddleware, lotRouter);
-app.use('/bid', bidRouter);
+app.use('/bid',authMiddleware, bidRouter);
 app.use('/trade', tradeRouter);
 
 app.use(errorMiddleware)

@@ -18,7 +18,6 @@ const WithAuth = ({ element }) => {
             method: 'GET',
             credentials:"include"
         });
-        console.log(response);
         dispatch(login(response));
       } catch (error) {
         navigate("/login");

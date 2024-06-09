@@ -34,7 +34,6 @@ class AuthController {
 
             const { email, password } = req.body;
             const userData = await authService.login(email, password);
-            // req.session.user = userData;
             res.cookie("userData", JSON.stringify(userData), { httpOnly: true });
 
             return res.json(userData);
@@ -44,7 +43,6 @@ class AuthController {
     }
     async checkAuth(req, res, next) {
         try {
-            console.log(req.cookies);
             if (req.cookies && req.cookies.userData) {
                 const userData = JSON.parse(req.cookies.userData);
                 return res.json(userData);

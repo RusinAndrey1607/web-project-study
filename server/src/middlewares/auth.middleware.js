@@ -1,11 +1,11 @@
 const ApiError = require('../exceptions/api.error');
 
 const authMiddleware = function (req, res, next) {
-    if (!req.session.user) {
+    if (!req.cookies.userData) {
         return next(ApiError.UnauthorizedError("User not authenticated"));
     }
 
-    req.user = req.session.user;
+    req.user = JSON.parse(req.cookies.userData);
     next();
 };
 module.exports = authMiddleware

@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.post(
     '/',
-    authMiddleware,
     [
         body('lotId').notEmpty().withMessage('Lot ID is required'),
         body('bidAmount').isFloat({ min: 0 }).withMessage('Bid amount must be a positive number'),

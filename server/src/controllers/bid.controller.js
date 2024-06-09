@@ -12,7 +12,7 @@ class BidController {
       }
 
       const { lotId, bidAmount } = req.body;
-      const userId = req.session.user.id;
+      const userId = req.user.id;
       const lot = await Lot.findByPk(lotId);
       if (!lot) {
         return next(ApiError.BadRequest("Lot not found"));
@@ -47,12 +47,18 @@ class BidController {
   async getBidsByLotId(req, res, next) {
     try {
       const { lotId } = req.params;
-      const bids = await Bid.findAll({ where: { LotId:lotId } });
-
+      const bids = await Bid.findAll({
+        where: { LotId: lotId },
+        include: [
+          { model: User, attributes: ['email'] }, 
+          { model: Lot, attributes: ['name'] }
+        ]
+      });
+  
       if (bids.length === 0) {
         return res.json([]);
       }
-
+  
       return res.json(bids);
     } catch (error) {
       next(error);
