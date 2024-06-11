@@ -1,9 +1,7 @@
 const cors = require('cors')
 const {dbConnect, sequelize} = require('./db/db')
 const express = require('express')
-const session = require('express-session');
-// const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const cookieParser = require('cookie-parser'); // Добавлено
+const cookieParser = require('cookie-parser');
 
 const authRouter = require('./routers/auth.router')
 const lotRouter = require('./routers/lots.router')
@@ -20,17 +18,6 @@ const app = express()
 
 app.use(cookieParser())
 
-// app.use(session({
-//     secret: 'secret-key',
-//     resave: false,
-//     saveUninitialized: false,
-//     store: new SequelizeStore({
-//         db: sequelize,
-//     }),
-//     cookie: {
-//         maxAge: 1000 * 60 * 60 * 24 
-//     }
-// }));
 app.use(express.json())
 app.use(cors({
     origin: 'http://localhost:5173',

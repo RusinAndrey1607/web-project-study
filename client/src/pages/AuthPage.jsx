@@ -12,7 +12,7 @@ const AuthPage = () => {
   const navigate = useNavigate();
 
   const handleAuth = async (data) => {
-    const endpoint = isLogin ? "/auth/login" : "/auth/register";
+    const endpoint = isLogin ? "/auth/login" : "/auth/registration";
     try {
       const userData = await apiFetch(endpoint, {
         method: 'POST',

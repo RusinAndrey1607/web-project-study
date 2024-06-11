@@ -11,10 +11,10 @@ import {
   Typography,
   Card,
   CardContent,
-  CardActions,
   Box,
 } from "@mui/material";
 import { addBid } from "../store/bid.slice";
+import { Link } from "react-router-dom";
 
 const LotList = () => {
   const dispatch = useDispatch();
@@ -27,11 +27,15 @@ const LotList = () => {
 
   const handleSubmitBid = (lotId) => {
     if (bidAmount[lotId]) {
-      dispatch(addBid({ lotId, bidAmount: bidAmount[lotId] }))
+      dispatch(addBid({ lotId, bidAmount: bidAmount[lotId] }));
     }
   };
+  const formatDateTime = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    return date.toLocaleString();
+  };
   useEffect(() => {
-    if (!lots?.length) {
+    if (lots == null) {
       dispatch(fetchLots());
     }
   }, [dispatch, lots]);
@@ -45,15 +49,43 @@ const LotList = () => {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
-        Lots
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
+        }}
+      >
+        <Typography variant="h4" gutterBottom>
+          Lots
+        </Typography>
+
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/completedTrades"
+          style={{ marginBottom: "20px" }}
+        >
+          Completed Trades
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/create-lot"
+          style={{ marginBottom: "20px" }}
+        >
+          Create Lot
+        </Button>
+      </Box>
+
       <List>
-        {lots.map((lot) => (
+        {lots?.map((lot) => (
           <ListItem key={lot.id} disableGutters>
             <Card variant="outlined" sx={{ width: "100%", mb: 2 }}>
-              <CardContent>
-                <Typography variant="h5" component="div">
+              <CardContent sx={{ textDecoration: "none", color: "inherit" }}>
+                <Typography variant="h5" component={Link} to={`/lot/${lot.id}`}>
                   {lot.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -63,7 +95,7 @@ const LotList = () => {
                   Starting Price: {lot.startingPrice}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  End Time: {lot.endTime}
+                  End Time: {formatDateTime(lot.auctionEndTime)}
                 </Typography>
                 <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
                   <TextField

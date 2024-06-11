@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBids } from "../store/bid.slice";
-import { CircularProgress,Paper, List, ListItem, ListItemText } from "@mui/material";
+import {
+  CircularProgress,
+  Paper,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 
 const BidsList = ({ lotId }) => {
   const dispatch = useDispatch();
@@ -25,19 +31,19 @@ const BidsList = ({ lotId }) => {
     return <div>No bids available for this lot.</div>;
   }
   return (
-    <div>
-      <h2>Bids</h2>
-      <List>
-        {bids.map((bid) => (
-          <Paper key={bid.id} elevation={3} style={{ marginBottom: '10px' }}>
+    <List>
+      {bids.map((bid) => (
+        <Paper key={bid.id} elevation={3} style={{ marginBottom: "10px" }}>
           <ListItem>
-            <ListItemText primary={`User: ${bid.User?.email}`} secondary={`Lot: ${bid.Lot?.name}`} />
+            <ListItemText
+              primary={`User: ${bid.User?.email}`}
+              secondary={`Lot: ${bid.Lot?.name}`}
+            />
             <ListItemText primary={`Amount: ${bid.bidAmount}`} />
           </ListItem>
         </Paper>
-        ))}
-      </List>
-    </div>
+      ))}
+    </List>
   );
 };
 

@@ -19,7 +19,7 @@ export const addLot = createAsyncThunk('lots/addLot', async (lot) => {
 const lotSlice = createSlice({
   name: 'lots',
   initialState: {
-    items: [],
+    items:null,
     loading: false,
     error: null
   },

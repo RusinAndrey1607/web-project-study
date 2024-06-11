@@ -69,7 +69,6 @@ Bid.init({
 });
 
 class TradeResult extends Model {}
-
 TradeResult.init({
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     lotId: { type: DataTypes.INTEGER, allowNull: false },
@@ -77,6 +76,7 @@ TradeResult.init({
 }, { sequelize, modelName: "TradeResult" });
 
 TradeResult.belongsTo(Bid, { as: 'winningBid' });
+TradeResult.belongsTo(Lot, { as: 'lot' })
 
 Bid.belongsTo(User);
 Bid.belongsTo(Lot);
