@@ -28,11 +28,6 @@ const LotDetailsPage = () => {
   return (
     <div style={{ padding: "20px" }}>
       <Grid container spacing={2} style={{ marginTop: "20px" }}>
-        <Grid item>
-          <Button component={Link} to="/" variant="outlined" color="secondary">
-            Back to All Lots
-          </Button>
-        </Grid>
         {userRole === "ADMIN" && (
           <Grid item>
             <Button

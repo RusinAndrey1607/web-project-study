@@ -59,25 +59,6 @@ const LotList = () => {
         <Typography variant="h4" gutterBottom>
           Lots
         </Typography>
-
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to="/completedTrades"
-          style={{ marginBottom: "20px" }}
-        >
-          Completed Trades
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to="/create-lot"
-          style={{ marginBottom: "20px" }}
-        >
-          Create Lot
-        </Button>
       </Box>
 
       <List>

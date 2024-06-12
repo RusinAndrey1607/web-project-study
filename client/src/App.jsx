@@ -1,11 +1,11 @@
-import LotList from "./components/LotList"
+import LotList from "./components/LotList";
 
 function App() {
   return (
     <>
       <LotList />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -5,12 +5,30 @@ import WithAuth from "../hoc/WithAuth";
 import LotDetailsPage from "../components/LotDetails";
 import CreateLotPage from "../components/CreateLotPage";
 import CompletedTradesPage from "../components/CompletedTrades";
+import Layout from "../components/Layout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element:<WithAuth element={<App />} />
-    ,
+    element: <WithAuth element={<Layout />} />, 
+    children: [
+      {
+        path: "",
+        element: <App />,
+      },
+      {
+        path: "lot/:lotId",
+        element: <LotDetailsPage />,
+      },
+      {
+        path: "create-lot",
+        element: <CreateLotPage />,
+      },
+      {
+        path: "completedTrades",
+        element: <CompletedTradesPage />,
+      },
+    ],
   },
   {
     path: "/login",
@@ -19,17 +37,5 @@ export const router = createBrowserRouter([
   {
     path: "/registration",
     element: <AuthPage />,
-  },
-  {
-    path:"/lot/:lotId",
-    element : <WithAuth element={<LotDetailsPage />}/>
-  },
-  {
-    path:"/create-lot",
-    element : <WithAuth element={<CreateLotPage />}/>
-  },
-  {
-    path:"/completedTrades",
-    element : <WithAuth element={<CompletedTradesPage />}/>
   },
 ]);

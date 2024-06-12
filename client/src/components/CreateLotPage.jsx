@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Button, Container, Typography, Paper, Grid, MenuItem } from '@mui/material';
-import { addLot } from '../store/lot.slice';
-import { useNavigate  } from 'react-router-dom';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Paper,
+  Grid,
+  MenuItem,
+} from "@mui/material";
+import { addLot } from "../store/lot.slice";
+import { useNavigate } from "react-router-dom";
 
 const CreateLotPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate ();
+  const navigate = useNavigate();
   const [lotDetails, setLotDetails] = useState({
-    name: '',
-    type: '',
-    initialPrice: '',
-    auctionEndTime: '',
-    auctionType: 'increase',
+    name: "",
+    type: "",
+    initialPrice: "",
+    auctionEndTime: "",
+    auctionType: "increase",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { user } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
@@ -26,17 +34,22 @@ const CreateLotPage = () => {
   };
 
   const handleSubmit = () => {
-    const { name, type, initialPrice, auctionEndTime, auctionType } = lotDetails;
+    const { name, type, initialPrice, auctionEndTime, auctionType } =
+      lotDetails;
     if (name && type && initialPrice && auctionEndTime && auctionType) {
       dispatch(addLot(lotDetails));
-      navigate('/');
+      navigate("/");
     } else {
-      setError('Please fill in all fields.');
+      setError("Please fill in all fields.");
     }
   };
 
-  if (user.role !== 'ADMIN') {
-    return <Typography variant="h6" color="error">You do not have permission to access this page.</Typography>;
+  if (user.role !== "ADMIN") {
+    return (
+      <Typography variant="h6" color="error">
+        You do not have permission to access this page.
+      </Typography>
+    );
   }
 
   return (
@@ -44,7 +57,7 @@ const CreateLotPage = () => {
       <Typography variant="h4" gutterBottom>
         Create New Lot
       </Typography>
-      <Paper elevation={3} style={{ padding: '20px' }}>
+      <Paper elevation={3} style={{ padding: "20px" }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -83,12 +96,15 @@ const CreateLotPage = () => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              label="End Time"
-              name="auctionEndTime"
+              id="auctionEndTime"
               type="datetime-local"
+              name="auctionEndTime"
               value={lotDetails.auctionEndTime}
               onChange={handleChange}
               fullWidth
+              InputLabelProps={{ shrink: true }}
+              label="End Time"
+              sx={{ mb: 2 }} 
             />
           </Grid>
           <Grid item xs={12}>
